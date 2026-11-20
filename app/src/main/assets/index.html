@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TV Libre</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ACCUEIL -->
+<section id="home" class="view active">
+  <header class="topbar">
+    <div class="brand"><span class="logo-dot"></span>TV <b>Libre</b></div>
+    <button class="icon-btn" id="btnAdd" title="Ajouter une playlist">＋</button>
+  </header>
+
+  <div class="hero">
+    <h1>Des milliers de chaînes gratuites, en direct.</h1>
+    <p>Chaînes publiques du monde entier : Sénégal, Côte d'Ivoire, comédie, films, science…</p>
+  </div>
+
+  <div id="rowFav" class="row hidden">
+    <h2>⭐ Mes favoris</h2>
+    <div class="hscroll" id="favList"></div>
+  </div>
+
+  <div id="rowRecent" class="row hidden">
+    <h2>🕘 Vus récemment</h2>
+    <div class="hscroll" id="recentList"></div>
+  </div>
+
+  <div id="rowMine" class="row hidden">
+    <h2>📂 Mes playlists</h2>
+    <div class="tiles" id="mineTiles"></div>
+  </div>
+
+  <div class="row">
+    <h2>🌍 Par pays</h2>
+    <div class="tiles" id="countryTiles"></div>
+  </div>
+
+  <div class="row">
+    <h2>🎬 Par thème</h2>
+    <div class="tiles" id="themeTiles"></div>
+  </div>
+
+  <p class="foot">Sources : playlists publiques <b>iptv-org</b>. Certaines chaînes peuvent être hors ligne ou bloquées selon le pays — c'est normal, l'appli te les signale.</p>
+</section>
+
+<!-- LISTE DE CHAÎNES -->
+<section id="list" class="view">
+  <header class="topbar">
+    <button class="icon-btn" id="btnBack">‹</button>
+    <div class="title-wrap"><div id="listTitle" class="list-title"></div><div id="listCount" class="list-sub"></div></div>
+  </header>
+  <div class="tools">
+    <input id="search" type="search" placeholder="Rechercher une chaîne…" autocomplete="off">
+    <div class="chips">
+      <button class="chip" id="chipOnline">✅ En ligne seulement</button>
+      <button class="chip" id="chipFr">🇫🇷 En français</button>
+    </div>
+    <div id="checkBar" class="checkbar hidden"><div class="bar"><i id="checkFill"></i></div><span id="checkTxt"></span></div>
+  </div>
+  <div id="grid" class="grid"></div>
+  <div id="sentinel"></div>
+  <div id="listMsg" class="msg hidden"></div>
+</section>
+
+<!-- LECTEUR -->
+<div id="player" class="player hidden">
+  <div class="p-top">
+    <button class="icon-btn" id="pClose">✕</button>
+    <div class="p-info"><div id="pName"></div><div id="pSub" class="list-sub"></div></div>
+    <button class="icon-btn" id="pFav">☆</button>
+  </div>
+  <div class="p-stage" id="pStage">
+    <video id="video" playsinline controls></video>
+    <div id="pLoading" class="p-loading"><div class="spinner"></div><span>Connexion à la chaîne…</span></div>
+    <div id="pError" class="p-error hidden">
+      <div class="big">📡</div>
+      <div id="pErrTxt">Chaîne indisponible pour le moment.</div>
+      <button class="btn" id="pSkip">Chaîne suivante ▶</button>
+    </div>
+  </div>
+  <div class="p-bottom">
+    <button class="btn ghost" id="pPrev">◀ Préc.</button>
+    <button class="btn ghost" id="pFull">⛶ Plein écran</button>
+    <button class="btn ghost" id="pNext">Suiv. ▶</button>
+  </div>
+</div>
+
+<!-- DIALOGUE AJOUT PLAYLIST -->
+<div id="dlg" class="dlg hidden">
+  <div class="dlg-box">
+    <h3>Ajouter une playlist M3U</h3>
+    <p class="list-sub">Colle l'adresse d'une playlist (par ex. une chaîne publique ou un abonnement légal que tu possèdes).</p>
+    <input id="dlgName" placeholder="Nom (ex. Mes chaînes)">
+    <input id="dlgUrl" placeholder="https://…/playlist.m3u" inputmode="url">
+    <div class="dlg-actions">
+      <button class="btn ghost" id="dlgCancel">Annuler</button>
+      <button class="btn" id="dlgOk">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="hls.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

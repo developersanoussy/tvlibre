@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.naokane.tvlibre'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.naokane.tvlibre'
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+    }
+
+    signingConfigs {
+        // Clé perso incluse dans le projet : chaque nouvelle version
+        // s'installe par-dessus l'ancienne (même signature).
+        perso {
+            storeFile file('tvlibre.jks')
+            storePassword 'tvlibre123'
+            keyAlias 'tvlibre'
+            keyPassword 'tvlibre123'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.perso
+        }
+        debug {
+            signingConfig signingConfigs.perso
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
