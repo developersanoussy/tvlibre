@@ -389,6 +389,22 @@
     return false;
   };
 
+  /* ---------- raccourcis clavier (version bureau) ---------- */
+  document.addEventListener('keydown', function (e) {
+    var inField = /INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '');
+    var playerOpen = !$('player').classList.contains('hidden');
+    if (e.key === 'Escape') {
+      if (document.fullscreenElement) return; // le navigateur gère la sortie du plein écran
+      if (playerOpen || $('list').classList.contains('active') || !$('dlg').classList.contains('hidden')) { e.preventDefault(); history.back(); }
+      return;
+    }
+    if (!playerOpen || inField) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); step(1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); step(-1); }
+    else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); $('pFull').click(); }
+    else if (e.key === ' ') { e.preventDefault(); if (video.paused) video.play().catch(function () {}); else video.pause(); }
+  });
+
   /* ---------- ajout playlist ---------- */
   $('btnAdd').onclick = function () { $('dlgName').value = ''; $('dlgUrl').value = ''; $('dlg').classList.remove('hidden'); history.pushState({ v: 'dlg' }, ''); };
   $('dlgCancel').onclick = function () { history.back(); };
